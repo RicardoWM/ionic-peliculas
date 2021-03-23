@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Movie } from '../../models/movie';
 import { DetalleComponent } from '../detalle/detalle.component';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-slideshow-poster',
@@ -9,6 +11,8 @@ import { DetalleComponent } from '../detalle/detalle.component';
   styleUrls: ['./slideshow-poster.component.scss'],
 })
 export class SlideshowPosterComponent implements OnInit {
+
+  url: string = environment.imgPath
 
   @Input() movies: Movie[] = [];
 
@@ -35,7 +39,8 @@ export class SlideshowPosterComponent implements OnInit {
   };
 
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private socialSharing: SocialSharing
   ) { }
 
   ngOnInit() {}
@@ -49,6 +54,10 @@ export class SlideshowPosterComponent implements OnInit {
     });
 
     modal.present();
+  }
+
+  share(movie: Movie) {
+    this.socialSharing.share(movie.title, '', '', `${this.url}/w500/${movie.backdrop_path}`);
   }
 
 }

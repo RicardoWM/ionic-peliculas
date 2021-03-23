@@ -1,8 +1,10 @@
 <ion-slides mode="md" [options]="slideOpts">
-  <ion-slide *ngFor="let movie of movies"
-              class="pelicula">
-    <ion-card (click)="verDetalle(movie.id)">
-      <img class="poster" [src]="movie.poster_path | imagen">
-    </ion-card>
+  <ion-slide *ngFor="let movie of movies" class="pelicula">
+    <div class="poster-container">
+      <ion-card (click)="verDetalle(movie.id)">
+        <img class="poster" [src]="movie.poster_path | imagen">
+      </ion-card>
+      <ion-icon class="icon-share" slot="end" name="share" (click)="share(movie)"></ion-icon>
+    </div>
   </ion-slide>
 </ion-slides>
